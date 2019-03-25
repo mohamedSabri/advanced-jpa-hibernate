@@ -27,6 +27,8 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 		
 		logger.info("Course 10001 -> {}",course);
 		
+		repository.deleteById(10001l);
+		
 	}
 
 }
