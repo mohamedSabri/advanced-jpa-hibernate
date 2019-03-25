@@ -16,7 +16,7 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CourseRepository repository;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoJpaHibernateInDepthApplication.class, args);
 	}
@@ -24,11 +24,15 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		Course course = repository.findById(10001L);
-		
-		logger.info("Course 10001 -> {}",course);
-		
-		repository.deleteById(10001l);
-		
+
+		logger.info("Course 10001 -> {}", course);
+
+		// we comment that because we use this class context to test so this will run
+		// before the test and will make test fail because we change the data, make unit
+		// test for deleteById
+
+		// repository.deleteById(10001l);
+
 	}
 
 }
