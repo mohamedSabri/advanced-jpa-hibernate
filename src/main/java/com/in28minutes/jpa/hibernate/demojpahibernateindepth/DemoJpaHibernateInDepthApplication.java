@@ -27,6 +27,7 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 
 		logger.info("Course 10001 -> {}", course);
 
+		repository.save(new Course("Microservices in 100 steps"));
 		// we comment that because we use this class context to test so this will run
 		// before the test and will make test fail because we change the data, make unit
 		// test for deleteById

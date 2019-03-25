@@ -8,6 +8,15 @@ import javax.persistence.Id;
 public class Course {
 
 	@Id
+
+	/**
+	 * what hibernate does when it see @GeneratedValue it uses the default of
+	 * creating a sequence and you can give it a strategy type.
+	 * 
+	 * hibernate will create a sequence then use the sequence to find the next value
+	 * for the ID. So it first called the sequence it get the value back. So it uses
+	 * that ID to insert the data in.
+	 */
 	@GeneratedValue
 	private Long id;
 	private String name;
@@ -37,7 +46,4 @@ public class Course {
 		return "Course [name=" + name + "]";
 	}
 
-
-
-	
 }
