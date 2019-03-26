@@ -45,15 +45,94 @@ public class CourseRepository {
 		logger.info("playWithEntityManager - start");
 
 		/**
-		 * The course here I only saved it here what I would changes you are doing to
-		 * the course later in the transaction are also being tracked by the entity
-		 * manager and they are also persisted.So the updated name will be in the
-		 * DataBase because we did the change before the end of the transaction.
+		 * 
+		 * Entity manager within a transaction keeps track of all the things that are
+		 * managed by it. So when you call entity manager.persist() or entity
+		 * manager.merge() or any of this methods on a specific object on a specific
+		 * entity. What ever the changes that are done to that entity in the rest of the
+		 * transaction are all also tracked by the entity manager and persisted to the
+		 * database.
+		 * 
+		 * The course I only saved it here what changes you are doing to the course
+		 * later in the transaction are also being tracked by the entity manager and
+		 * they are also persisted.So the updated name will be in the DataBase because
+		 * we did the change before the end of the transaction.
 		 * 
 		 * 
 		 */
 		Course course = new Course("Web Services in 100 steps");
 		em.persist(course);
 		course.setName("Web Services in 100 steps - Updated");
+
+		/**
+		 * what entity manager.flush() method does?
+		 * 
+		 * The changes which are done until then they would be sent out to the database
+		 * so I can call entity manager.flush() at multiple places so that the changes
+		 * up to that point are sent out of the database. So now you can see this
+		 * specific transaction as four steps. first we creating course1 then updating
+		 * course1 and we creating course 2 and updating course2.
+		 * 
+		 * let's say I don't want the course2 changes to be going to the database How
+		 * can I do that?
+		 * 
+		 * There is another method in the entity manager called detach take an object of
+		 * the entity and Remove the given entity from the persistence context,Once the
+		 * entity is detached Unflushed changes made to the entity if any (including
+		 * removal of the entity),will not be synchronized to the database.
+		 */
+		Course course1 = new Course("Angular Js in 100 steps");
+		em.persist(course1);
+		em.flush();
+
+		em.detach(course1);
+
+		course1.setName("Angular Js in 100 steps - Updated");
+		em.flush();
+
+		Course course2 = new Course("React Native in 100 steps");
+		em.persist(course2);
+		em.flush();
+
+		/**
+		 * 
+		 * because of detach() method course2 are no longer tracked by the entity
+		 * manager. Any changes to course2 will not being saved in the database. So, the
+		 * course2 name will still "React Native in 100 steps" not "React Native in 100
+		 * steps - Updated"
+		 */
+		em.detach(course2);
+
+		course2.setName("React Native in 100 steps - Updated");
+		em.flush();
+
+		/**
+		 * instead of calling detach() on everything You can also say entity
+		 * manager.clear() So this would clear everything that is there in the entity
+		 * manager so it would clear out everything that is being tracked by entity
+		 * manager and everything including course1 and course2 will not be tracked and
+		 * whatever changes you make to them will not be flushed out will not be saved
+		 * to the database.
+		 * 
+		 * em.clear() will Clear the persistence context, causing all managed entities
+		 * to become detached. Changes made to entities that have not been flushed to
+		 * the database will not be persisted.
+		 */
+
+		Course course3 = new Course("IOS in 100 steps");
+		em.persist(course3);
+
+		Course course4 = new Course("Vue JS in 100 steps");
+		em.persist(course4);
+
+		em.flush();
+
+		em.clear();
+
+		course3.setName("IOS in 100 steps - Updated");
+		course4.setName("Vue Js in 100 steps - Updated");
+
+		em.flush();
+
 	}
 }
