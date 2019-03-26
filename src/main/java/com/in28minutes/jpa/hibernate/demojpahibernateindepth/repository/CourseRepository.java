@@ -64,6 +64,7 @@ public class CourseRepository {
 		em.persist(course);
 		course.setName("Web Services in 100 steps - Updated");
 
+		// Entity Manager Methods - flush,detach
 		/**
 		 * what entity manager.flush() method does?
 		 * 
@@ -106,6 +107,7 @@ public class CourseRepository {
 		course2.setName("React Native in 100 steps - Updated");
 		em.flush();
 
+		// Entity Manager Methods - clear
 		/**
 		 * instead of calling detach() on everything You can also say entity
 		 * manager.clear() So this would clear everything that is there in the entity
@@ -134,5 +136,31 @@ public class CourseRepository {
 
 		em.flush();
 
+		// Entity Manager Methods - refresh
+		Course course5 = new Course("Flutter in 100 steps");
+		em.persist(course5);
+		em.flush();
+
+		course5.setName("Flutter in 100 steps - Updated");
+
+		/**
+		 * Refresh the state of an entity instance from the database,if there is any
+		 * changes that made to the instance it will be overwritten.
+		 * 
+		 * After doing the update(change the course name) say that I would want to
+		 * refresh course5 with the details that are present in the database.I don't
+		 * want the updated data for course5 to go through.I would want to refresh
+		 * course5 with the contents from the database.
+		 * 
+		 * when I call refresh() what would happen is all the changes which I've done to
+		 * course5 are lost and it will be refreshed with the content that comes from
+		 * the database. So, After refresh the course name will be "Flutter in 100
+		 * steps" not "Flutter in 100 steps - Updated" and when you call flush() there
+		 * is no need to execute an update query anymore because there is no change to
+		 * update.
+		 */
+		em.refresh(course5);
+
+		em.flush();
 	}
 }
