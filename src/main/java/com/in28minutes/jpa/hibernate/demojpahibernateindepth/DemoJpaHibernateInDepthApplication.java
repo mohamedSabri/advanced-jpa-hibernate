@@ -23,11 +23,20 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Course course = repository.findById(10001L);
 
-		logger.info("Course 10001 -> {}", course);
+		/**
+		 * whenever you are inside the transaction and you are managing something with the entity
+		 * manager when you are updating something or deleting something or you
+		 * inserting something in.That particular thing continues to be managed by the
+		 * entity manager until the end of the transaction.
+		 */
+		repository.playWithEntityManager();
 
-		repository.save(new Course("Microservices in 100 steps"));
+		/**
+		 * Course course = repository.findById(10001L); logger.info("Course 10001 ->
+		 * {}", course); repository.save(new Course("Microservices in 100 steps"));
+		 */
+
 		// we comment that because we use this class context to test so this will run
 		// before the test and will make test fail because we change the data, make unit
 		// test for deleteById
