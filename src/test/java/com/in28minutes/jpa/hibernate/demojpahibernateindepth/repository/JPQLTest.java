@@ -1,12 +1,17 @@
 package com.in28minutes.jpa.hibernate.demojpahibernateindepth.repository;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.fail;
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,5 +57,17 @@ public class JPQLTest {
 		List<Course> resultList = query.getResultList();
 
 		logger.info("Typed where Query: Select c From Course c -> {}", resultList);
+	}
+
+
+	@Test(expected = PersistenceException.class)
+	@Transactional
+	public void testNullableColumn() {
+		Course course = new Course("non nullable course name");
+		logger.info("before nullable course -> {}", course);
+		em.persist(course);
+		course.setName(null);
+		em.flush();
+		logger.info("after nullable course -> {}", course);
 	}
 }

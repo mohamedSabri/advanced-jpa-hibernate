@@ -1,12 +1,13 @@
 package com.in28minutes.jpa.hibernate.demojpahibernateindepth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Course")
+@Table(name = "Course")
 public class Course {
 
 	@Id
@@ -21,6 +22,12 @@ public class Course {
 	 */
 	@GeneratedValue
 	private Long id;
+
+	// insertable indicate if that column needs to be included in the insert
+	// statements that are sent.
+	// updatable indicate if that column needs to be included in the update
+	// statements that are sent.
+	@Column(name = "name",nullable=false)
 	private String name;
 
 	protected Course() {
