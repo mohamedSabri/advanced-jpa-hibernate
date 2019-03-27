@@ -59,7 +59,6 @@ public class JPQLTest {
 		logger.info("Typed where Query: Select c From Course c -> {}", resultList);
 	}
 
-
 	@Test(expected = PersistenceException.class)
 	@Transactional
 	public void testNullableColumn() {
@@ -70,4 +69,29 @@ public class JPQLTest {
 		em.flush();
 		logger.info("after nullable course -> {}", course);
 	}
+
+	@Test
+	public void jpql_NamedQuery_basic() {
+		Query query = em.createNamedQuery("query_get_all_courses");
+		List resultList = query.getResultList();
+
+		logger.info("query_get_all_courses -> {}", resultList);
+	}
+
+	@Test
+	public void jpql_NamedQuery_TypedQuery() {
+		TypedQuery<Course> query = em.createNamedQuery("query_get_all_courses", Course.class);
+		List<Course> resultList = query.getResultList();
+
+		logger.info("Typed Query: query_get_all_courses -> {}", resultList);
+	}
+
+	@Test
+	public void jpql_NamedQuery_Where() {
+		TypedQuery<Course> query = em.createNamedQuery("query_get_150_steps_courses", Course.class);
+		List<Course> resultList = query.getResultList();
+
+		logger.info("Typed where Query: query_get_150_steps_courses -> {}", resultList);
+	}
+
 }

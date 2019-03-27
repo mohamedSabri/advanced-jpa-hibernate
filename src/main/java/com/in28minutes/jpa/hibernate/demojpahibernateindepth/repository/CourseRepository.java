@@ -166,7 +166,7 @@ public class CourseRepository {
 	}
 	
 	public void playWithEntityManager() {
-		Course course = new Course("Web Services in 100 steps");
+		Course course = new Course("Web Services in 150 steps");
 		em.persist(course);
 		
 		Course course2 = findById(10001l);
