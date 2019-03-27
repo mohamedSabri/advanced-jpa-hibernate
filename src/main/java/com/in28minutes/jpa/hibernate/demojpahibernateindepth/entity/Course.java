@@ -3,8 +3,10 @@ package com.in28minutes.jpa.hibernate.demojpahibernateindepth.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Course")
 public class Course {
 
 	@Id
