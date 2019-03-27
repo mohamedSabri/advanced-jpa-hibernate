@@ -41,7 +41,8 @@ public class CourseRepository {
 		em.remove(course);
 	}
 
-	public void playWithEntityManager() {
+	// we use this method until step 17 for "JPA and Hibernate in Depth" section
+	public void playWithEntityManagerUntilStep17() {
 		logger.info("playWithEntityManager - start");
 
 		/**
@@ -162,5 +163,13 @@ public class CourseRepository {
 		em.refresh(course5);
 
 		em.flush();
+	}
+	
+	public void playWithEntityManager() {
+		Course course = new Course("Web Services in 100 steps");
+		em.persist(course);
+		
+		Course course2 = findById(10001l);
+		course2.setName("JPA in 50 Steps - Updated");
 	}
 }
