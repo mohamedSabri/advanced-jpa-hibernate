@@ -82,7 +82,7 @@ public class CourseRepository {
 		 * entity is detached Unflushed changes made to the entity if any (including
 		 * removal of the entity),will not be synchronized to the database.
 		 */
-		Course course1 = new Course("Angular Js in 100 steps");
+		Course course1 = new Course("Angular Js in 150 steps");
 		em.persist(course1);
 		em.flush();
 
