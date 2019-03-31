@@ -94,7 +94,7 @@ public class StudentRepositoryTest {
 	@Transactional
 	public void retrieveStudentAndPassportDetails() {
 
-		Student student = em.find(Student.class, 20001l);
+		Student student = em.find(Student.class, 20001L);
 
 		logger.info("student -> {} ", student);
 		// with lazy fetch if there is no @Transactional it will throw
@@ -103,4 +103,11 @@ public class StudentRepositoryTest {
 		logger.info("passport -> {}", student.getPassport());
 	}
 
+	@Test
+	@Transactional
+	public void retrievePassportAndAssociatedStudent() {
+		Passport passport = em.find(Passport.class, 40001L);
+		logger.info("passport -> {}", passport);
+		logger.info("student -> {}", passport.getStudent());
+	}
 }

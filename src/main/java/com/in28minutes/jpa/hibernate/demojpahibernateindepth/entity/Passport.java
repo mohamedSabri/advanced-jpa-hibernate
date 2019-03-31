@@ -57,6 +57,14 @@ public class Passport {
 	 * passport_id in the table that own the relationship (Student table) no data
 	 * duplication there is no student_id in the passport table but I can get the
 	 * student that has a specific passport.
+	 * 
+	 * what the mapped by attribute insures that in the passport table the student
+	 * id column is not created.So passport is not the owning side of the
+	 * relationship the column would be stored in Student.But the @OneToOne
+	 * annotation gives us a way to navigate from the passport to the student. So
+	 * even though there is no column associated with the student_id it gives us a
+	 * way to navigate from the passport to the student.And this is what is called
+	 * Bidirectional navigation.
 	 */
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "passport")
@@ -80,6 +88,14 @@ public class Passport {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	@Override
