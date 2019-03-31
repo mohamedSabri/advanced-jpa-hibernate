@@ -1,6 +1,7 @@
 package com.in28minutes.jpa.hibernate.demojpahibernateindepth.repository;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,12 +27,14 @@ public class StudentRepositoryTest {
 	private EntityManager em;
 
 	@Test
+	@Transactional
 	public void retrieveStudentAndPassportDetails() {
 
 		Student student = em.find(Student.class, 20001l);
 
 		logger.info("student -> {} ", student);
-
+		// with lazy fetch if there is no @Transactional it will throw
+		// org.hibernate.LazyInitializationException because there is no session
 		logger.info("passport -> {}", student.getPassport());
 	}
 
