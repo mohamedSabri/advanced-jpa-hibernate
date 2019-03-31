@@ -44,4 +44,11 @@ public class Student {
 		return "Student [name=" + name + "]";
 	}
 
+	public Passport getPassport() {
+		return passport;
+	}
+
+	public void setPassport(Passport passport) {
+		this.passport = passport;
+	}
 }
