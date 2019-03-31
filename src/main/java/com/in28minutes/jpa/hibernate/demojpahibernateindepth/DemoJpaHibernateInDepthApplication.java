@@ -30,7 +30,8 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 		 * inserting something in.That particular thing continues to be managed by the
 		 * entity manager until the end of the transaction.
 		 */
-		repository.playWithEntityManager();
+		
+//		repository.playWithEntityManager();
 
 		/**
 		 * Course course = repository.findById(10001L); logger.info("Course 10001 ->
