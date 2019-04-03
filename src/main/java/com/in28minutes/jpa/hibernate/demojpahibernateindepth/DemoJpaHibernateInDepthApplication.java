@@ -48,7 +48,9 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 
 		// courseRepository.deleteById(10001l);
 
-		studentRepository.saveStudentWithPassport();
+//		studentRepository.saveStudentWithPassport();
+		
+		courseRepository.addReviewsForCourse();
 	}
 
 }
