@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -77,5 +79,17 @@ public class CourseRepositoryTest {
 	@DirtiesContext
 	public void playWithEntityManager() {
 		repository.playWithEntityManager();
+	}
+
+	@Test
+	@Transactional
+	// debug it to see in the default case (lazy fetch) there is two select queries
+	// one when you find the course and second when you get the reviews if you
+	// didn't call getReviews() method the second query will not be executed.
+	public void retrieveReviewsForCourse() {
+
+		Course course = repository.findById(10001l);
+		logger.info("course reviews -> {}", course.getReviews());
+
 	}
 }

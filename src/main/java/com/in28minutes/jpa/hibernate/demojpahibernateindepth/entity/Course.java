@@ -50,6 +50,19 @@ public class Course {
 	@CreationTimestamp
 	private LocalDateTime createdDate;
 
+	// By default on the one to many side of the relationships the fetch type is
+	// lazy means that when you retrieve the course a select query on course table
+	// will be executed to get only course details not including the reviews,but
+	// when you call course.getReviews() method you will execute another select
+	// query on review table to retrieve the course reviews.
+	// You can change fetch type to be Eager which means when you call
+	// find(courseId) method a select statement will be
+	// executed to get course details and also its reviews from the review table,So
+	// when you call course.getReviews() you will get them you won't need to hit the
+	// database.
+
+	// any relation ends with %ToMany the default fetch type is Lazy and any
+	// relation ends with %ToOne the default fetch type is Eager
 	@OneToMany(mappedBy = "course")
 	private List<Review> reviews = new ArrayList<Review>();
 
