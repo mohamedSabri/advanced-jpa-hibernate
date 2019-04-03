@@ -1,5 +1,7 @@
 package com.in28minutes.jpa.hibernate.demojpahibernateindepth.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
@@ -174,7 +176,7 @@ public class CourseRepository {
 		course2.setName("JPA in 50 Steps - Updated");
 	}
 
-	public void addReviewsForCourse() {
+	public void addHardcodedReviewsForCourse() {
 
 		// get the course 10003
 		Course course = findById(10003l);
@@ -194,6 +196,18 @@ public class CourseRepository {
 		// save it to the database
 		em.persist(review1);
 		em.persist(review2);
+
+	}
+
+	public void addReviewsForCourse(Long courseId, List<Review> reviews) {
+
+		Course course = findById(courseId);
+		logger.info("course reviews -> {}", course.getReviews());
+		for (Review review : reviews) {
+			course.addReview(review);
+			review.setCourse(course);
+			em.persist(review);
+		}
 
 	}
 }

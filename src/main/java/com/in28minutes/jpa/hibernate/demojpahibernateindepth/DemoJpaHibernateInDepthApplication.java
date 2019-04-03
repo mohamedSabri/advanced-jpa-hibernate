@@ -1,5 +1,8 @@
 package com.in28minutes.jpa.hibernate.demojpahibernateindepth;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.in28minutes.jpa.hibernate.demojpahibernateindepth.entity.Review;
 import com.in28minutes.jpa.hibernate.demojpahibernateindepth.repository.CourseRepository;
 import com.in28minutes.jpa.hibernate.demojpahibernateindepth.repository.StudentRepository;
 
@@ -49,8 +53,11 @@ public class DemoJpaHibernateInDepthApplication implements CommandLineRunner {
 		// courseRepository.deleteById(10001l);
 
 //		studentRepository.saveStudentWithPassport();
-		
-		courseRepository.addReviewsForCourse();
+
+		List<Review> reviews = new ArrayList<Review>();
+		reviews.add(new Review("5", "description11"));
+		reviews.add(new Review("5", "description22"));
+		courseRepository.addReviewsForCourse(10003l, reviews);
 	}
 
 }
